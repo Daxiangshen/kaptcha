@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript">
+        function refresh() {
+            document.getElementById('captcha_img').src="/kaptcha?"+Math.random();
+        }
+    </script>
+</head>
+<body>
+<form action="/hello" method="post">
+    验证码:  <input type="text" placeholder="请输入验证码" name="verifyCodeActual">
+    <div class="item-input">
+        <img id="captcha_img" alt="点击更换" title="点击更换"
+             onclick="refresh()" src="/kaptcha" />
+    </div>
+    <input type="submit" value="提交" />
+</form>
+</body>
+</html>
+<!--验证码本质是一张图片，所以用<img >标签
+然后通过src = "/kaptcha"指向生成验证码的那个controller的路由即可;
+通过onclick = “refresh()”调用js代码实现点击切换功能;
+<input name = "verifyCodeActual ">中要注意name的值，
+在CodeUtil中通过request的getParameter()方法获取用户输入的验证码时传入的key值就应该和这里的name值一致
